@@ -12,7 +12,7 @@ public class BoardDAO extends DAO {
 	public BoardVO insertBoard(BoardVO vo) {
 		// 입력처리중 에러가 발생하면.. null;
 		getConnect();
-		String sql = "select board_seq.nextval from dual";
+		String sql = "select board_seq.nextval from dual";//
 		String sql2 = "insert into tbl_board (board_no, title, content, writer, image) "//
 				+ " values (?, ?, ?, ?,?)";
 
