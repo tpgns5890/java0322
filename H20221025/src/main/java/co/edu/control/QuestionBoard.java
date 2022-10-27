@@ -1,8 +1,7 @@
 package co.edu.control;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,17 +15,17 @@ import co.edu.common.HttpUtil;
 import co.edu.service.BoardService;
 import co.edu.service.BoardServiceImpl;
 
-public class WriteBoard implements Control {
+public class QuestionBoard implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		String saveDir = req.getServletContext().getRealPath("upload"); //저장폴더.
+
+		String saveDir = req.getServletContext().getRealPath("upload");
 		System.out.println(saveDir);
-		int maxSize = 5 * 1024 * 1024; // 5 메가 제한
 		String encod = "UTF-8";
+		int maxSize = 5 * 1024 * 1024;
 		
-		MultipartRequest mr = new MultipartRequest(
+		MultipartRequest mr =  new MultipartRequest(
 				req, // 요청정보
 				saveDir, // 저장위치
 				maxSize, // 파일크기
@@ -39,13 +38,12 @@ public class WriteBoard implements Control {
 		String writer = mr.getParameter("writer");
 		String image = mr.getFilesystemName("image");
 		
-		// 디비 입력
+		//디비입력
 		BoardService service = new BoardServiceImpl();
 		service.insertBoard(new BoardVO(0, title, content, writer, null, 0, image));
 		
-//		HttpUtil.forward(req, resp, "bulletin/bulletin.tiles");
-		resp.sendRedirect("bulletin.do");
 		
+		HttpUtil.forward(req, resp, "question/questionOut.tiles");
 	}
 
 }

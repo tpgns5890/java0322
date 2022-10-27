@@ -10,8 +10,9 @@
 		<put-attribute name="body" value="/WEB-INF/tiles/template/home.jsp" />
 	</definition>
 	
+	<!-- 경로설정. -->
 	<definition name="WILDCARD:template/*" extends="home">
-		<put-attribute name="body" value="/WEB-INF/tiles/jsp/{1}.jsp"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/tiles/template/{1}.jsp"></put-attribute>
 	</definition>
 	<definition name="WILDCARD:*/*" extends="home">
 		<put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp"></put-attribute>

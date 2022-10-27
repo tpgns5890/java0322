@@ -13,7 +13,7 @@ public class MainControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		HttpUtil.forward(req, resp, "member/member.tiles");
+		HttpUtil.forward(req, resp, "template/home.tiles");
 	}
 
 }
