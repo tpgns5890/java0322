@@ -36,12 +36,23 @@ public class FrontController extends HttpServlet{
 		controlList.put("/searchBoard.do", new SearchBoard());
 		controlList.put("/writeBoardForm.do", new WriteForm());
 		controlList.put("/writeBoard.do", new WriteBoard());
+		
+		//ggldlw
+		controlList.put("/signUpFrom.do", new SignUpForm());
+		controlList.put("/signUp.do", new SignUp());
+		controlList.put("/memberList.do", new MemberList());
+		
+		controlList.put("/signInForm", new SignInForm());
+		controlList.put("signIn", new SignIn());
+		
 	}
 	
 	
 	//service()
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding(charset);//한글처리
+		resp.setCharacterEncoding(charset);
 		String uri = req.getRequestURI(); // http://localhost:8081/H20221025/main.do
 		String context = req.getContextPath();
 		String path = uri.substring(context.length());

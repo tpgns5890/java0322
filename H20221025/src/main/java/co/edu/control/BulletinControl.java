@@ -21,13 +21,13 @@ public class BulletinControl implements Control {
 		String page = req.getParameter("page");
 		page = page == null? "1" : page;
 		int pg = Integer.parseInt(page);
-		
+		pageVO paging  = new pageVO();
 		BoardService service = new BoardServiceImpl();
 		List<BoardVO> list = service.pageList(pg); // service.getList(new BoardVO(0,"","","","",0,""));
 		
 		req.setAttribute("bList", list);
 		
-		HttpUtil.forward(req, resp, "bulletin/bulletin.tiles");
+		HttpUtil.forward(req, resp, "tiles/home.jsp");
 	}
 
 }

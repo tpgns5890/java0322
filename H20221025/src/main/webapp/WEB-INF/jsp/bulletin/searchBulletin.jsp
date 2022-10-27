@@ -23,6 +23,8 @@
 			<td colspan ='2'>
 				<textarea rows ='5' cols ='30'><%=result.getContent() %></textarea>
 			</td>
+			<td>
+	  		<img src= "upload/<%=result.getImage()%>" alt ="" ></img></td>
 		</tr>
 		<tr>
 			<th>작성일자</th><td><%=result.getWriteDate() %></td>

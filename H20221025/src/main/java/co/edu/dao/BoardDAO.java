@@ -216,4 +216,9 @@ public class BoardDAO extends DAO {
 
 	}
 
+	public PageVO(int total) {
+		
+	}
+	
+	
 }
