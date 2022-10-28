@@ -16,7 +16,7 @@
 	<div class="list-group list-group-flush">
 		<a
 			class="list-group-item list-group-item-action list-group-item-light p-3"
-			href="bulletin.do?page=13">게시판</a> <a
+			href="bulletin.do?">게시판</a> <a
 			class="list-group-item list-group-item-action list-group-item-light p-3"
 			href="writeBoardForm.do">글등록</a>  <a
 			class="list-group-item list-group-item-action list-group-item-light p-3"
@@ -28,9 +28,9 @@
 			class="list-group-item list-group-item-action list-group-item-light p-3"
 			href="signOut.do">로그아웃</a>  <a
 			class="list-group-item list-group-item-action list-group-item-light p-3"
-			href="questionForm.do">Q&A</a> <a
+			href="questionBoard.do">Q&A</a> <a
 			class="list-group-item list-group-item-action list-group-item-light p-3"
-			href="#!">문의글
+			href="questionForm.do">문의글
 			</a>
 	</div>
 </div>

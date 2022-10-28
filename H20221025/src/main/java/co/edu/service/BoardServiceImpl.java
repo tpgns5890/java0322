@@ -64,6 +64,11 @@ public class BoardServiceImpl implements BoardService{
 	public MemberVO loginCheck(String id, String pw) {
 		return dao.loginCheck(id, pw);
 	}
+
+	@Override
+	public MemberVO PassReConfirm(String id) {
+		return dao.passReConfirm(id);
+	}
 	
 	
 

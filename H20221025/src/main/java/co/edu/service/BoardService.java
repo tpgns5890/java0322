@@ -24,4 +24,7 @@ public interface BoardService {
 	
 	//회원목록.
 	public List<MemberVO> memberList();
+	
+	//비밀번호재전송
+	public MemberVO PassReConfirm(String id);
 }

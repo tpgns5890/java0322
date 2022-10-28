@@ -6,26 +6,23 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import co.edu.board.BoardVO;
+import co.edu.board.MemberVO;
 import co.edu.common.Control;
 import co.edu.common.HttpUtil;
 import co.edu.service.BoardService;
 import co.edu.service.BoardServiceImpl;
 
-public class SearchBoard implements Control {
+public class passwdReConfirm implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// bno 파라메터 전달값 가져오기..(bulletin.jsp)
 		
-		String bno = req.getParameter("bno");
+		String id = req.getParameter("id");
 		
 		BoardService service = new BoardServiceImpl();
-		BoardVO board = service.findBoard(Integer.parseInt(bno));
-		req.setAttribute("board", board);
+		service.PassReConfirm(id);
 		
-		HttpUtil.forward(req, resp, "bulletin/searchBulletin.tiles");
-		
+		HttpUtil.forward(req, resp, "member/passwdReConfirm.tiles");
 	}
 
 }

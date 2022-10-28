@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +21,8 @@ import co.edu.control.SignInForm;
 import co.edu.control.SignOut;
 import co.edu.control.WriteBoard;
 import co.edu.control.WriteForm;
+import co.edu.control.passwdReConfirm;
+import co.edu.control.passwdReConfirmForm;
 import co.edu.control.SignIn;
 
 public class FrontController extends HttpServlet{
@@ -66,6 +67,10 @@ public class FrontController extends HttpServlet{
 		controlList.put("/signInForm.do", new SignInForm()); //로그인화면
 		controlList.put("/signIn.do", new SignIn()); //로그인
 		controlList.put("/signOut.do", new SignOut()); //로그아웃
+		
+		controlList.put("/passwdReConfirmForm.do", new passwdReConfirmForm());
+		controlList.put("/passwdReConfirm.do", new passwdReConfirm());
+		
 		
 		
 		

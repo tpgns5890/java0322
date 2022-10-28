@@ -3,10 +3,12 @@ package co.edu.dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import co.edu.board.BoardVO;
 import co.edu.board.MemberVO;
 import co.edu.common.DAO;
+import co.edu.control.MailApp;
 import javassist.compiler.ast.Member;
 
 public class BoardDAO extends DAO {
@@ -205,7 +207,7 @@ public class BoardDAO extends DAO {
 	public List<MemberVO> signUp(MemberVO vo) {
 		List<MemberVO> list = new ArrayList<>();
 		getConnect();
-		String sql = "insert into members(id,passwd,name,email,resposibility) " + "values(?,?,?,?,'user')";
+		String sql = "insert into members(id,passwd,name,email,responsibility) " + "values(?,?,?,?,'user')";
 
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -238,11 +240,13 @@ public class BoardDAO extends DAO {
 		getConnect();
 		String sql = "select *  "
 				+ "from members "
-				+ "where id = ? ";
+				+ "where id = ? and passwd = ?";
 		
 		try {
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, id);
+			psmt.setString(2, pw);
+			
 			rs = psmt.executeQuery();
 			if(rs.next()) {
 				vo = new MemberVO(rs.getString("id"),rs.getString("passwd"));
@@ -280,6 +284,54 @@ public class BoardDAO extends DAO {
 			disconnect();
 		}
 		return list;
+	}
+//비밀번호 재설정
+	public MemberVO passReConfirm(String id) {
+		MailApp dao = new MailApp();
+		getConnect();
+		String email = "";
+		String password = "";
+		
+		Random random = new Random();
+		int createNum = 0;
+		String ranNum = "";
+		int letter = 6;
+		String resultNum = "";
+		
+		String sql = "select email from members where id = ?";
+		String sql1 = "update members set passwd = ? where id = ?";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				email = rs.getString(1);
+			}
+			
+			for(int i=0; i<letter; i++) {
+				createNum = random.nextInt(9);
+				ranNum = Integer.toString(createNum);
+				resultNum += ranNum;	
+			}
+			
+			psmt = conn.prepareStatement(sql1);
+			psmt.setString(1, resultNum);
+			psmt.setString(2, id);
+			psmt.executeQuery();
+			password = "변경된 비밀번호는 : " + resultNum + " 입니다.";
+			String subject = "자바게시판 비밀번호 재설정";
+			if (dao.sendMail(email,subject, password).equals("Success")) {
+				System.out.println("임시비밀번호 발송!\n");
+
+			} else {
+				System.out.println("전송실패\n");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+		return null;
 	}
 	
 }
