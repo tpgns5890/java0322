@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>fetch.html</title>
+</head>
+
+<body>
+	<h3>회원등록페이지.</h3>
+	<form name="submitFrm" action="" method="post">
+		id: <input type="text" id="id"><br>
+		pass: <input type="text" id="passwd"><br>
+		email: <input type="email" id="email"><br>
+		name: <input type="text" id="name"><br>
+		<input type="submit" value="등록">
+	</form>
+	<div id="show">
+		<table border="1">
+			<thead>
+				<tr>
+					<th>아이디</th>
+					<th>이름</th>
+					<th>이메일</th>
+					<th>권한</th>
+					<th>삭제</th>
+				</tr>
+			</thead>
+			<tbody id="list">
+
+			</tbody>
+		</table>
+	</div>
+
+	<script>
+		document.forms.submitFrm.onsubmit = addFunc;
+
+		function addFunc() {
+			let id = document.getElementById('id').value;
+			let pw = document.getElementById('passwd').value;
+			let em = document.getElementById('email').value;
+			let nm = document.getElementById('name').value;
+			let check = id && pw && em && nm;
+			if (!check) {
+				alert('필수항목입니다.')
+				return false;
+			}
+			let data = 'id=' + id + '&passwd=' + pw + '&email=' + em + '&name=' + nm + '&job=insert';
+			//ajax 호출
+			fetch('./MemberListServlet', {
+					method: 'post',
+					headers: {
+						'Content-type': 'application/x-www-form-urlencoded'
+					},
+					body: data
+
+				})
+				.then(result => result.json())
+				.then(addCallback)
+				.catch(err=>{
+					console.log(err);
+				});
+
+			return false; // preventDefault();
+		}
+
+		function addCallback(result) {
+			console.log(result);
+			document.querySelector('#list').append(makeTr(result));
+
+			//화면 입력 초기화
+			document.getElementById('id').value = '';
+			document.querySelector('#name').value = '';
+			document.querySelector('#passwd').value = '';
+			document.querySelector('#email').value = '';
+		}
+
+
+		//data 한건을 tr 생성
+		function makeTr(obj) {
+			let tr = document.createElement('tr');
+			tr.setAttribute('id', 'tr_' + obj.id);
+
+			for (let field in obj) {
+				if (field == 'pw') continue; //passwd는 td를 만들지 않음
+
+				let td = document.createElement('td');
+				let txt = document.createTextNode(obj[field]);
+				td.append(txt);
+				tr.append(td);
+			}
+			//삭제 버튼
+			let dBtn = document.createElement('button');
+			// dBtn.addEventListener('click', deleteFnc);
+			let td = document.createElement('td');
+			dBtn.textContent = '삭제';
+			td.append(dBtn);
+			tr.append(td);
+			return tr;
+		}
+
+		fetch('MemberListServlet')
+			.then(result => result.json())
+			.then(showData)
+			.catch(function (err) {
+				console.log(err);
+			})
+
+		function showData(result) {
+			console.log(result)
+		}
+	</script>
+</body>
+
+</html>
