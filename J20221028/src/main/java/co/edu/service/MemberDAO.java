@@ -2,13 +2,61 @@ package co.edu.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import co.edu.common.DAO;
 import co.edu.member.MemberVO;
+import co.edu.member.ScheduleVO;
 
 public class MemberDAO extends DAO {
-
+	
+	// 전체스케줄 목록 가져오는 메소드
+	public List<ScheduleVO> getSchedules() {
+		getConnect();
+		String sql = "select * from full_calendar";
+		List<ScheduleVO> list = new ArrayList<>();
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				ScheduleVO vo = new ScheduleVO();
+				vo.setTitle(rs.getString(1));
+				vo.setStart(rs.getString(2));
+				vo.setEnd(rs.getString(3));
+				
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+		return list;
+	}
+	//부서명, 부서인원.
+	public Map<String, Integer> getEmpByDept(){
+		getConnect();
+		Map<String, Integer> map = new HashMap<>();
+		String sql = "select d.department_name, count(1)\r\n"
+				+ "from hr.employees e\r\n"
+				+ "join hr.departments d\r\n"
+				+ "on e.department_id = d.department_id\r\n"
+				+ "group by d.department_name";
+		try {
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				map.put(rs.getString(1), rs.getInt(2));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+		return map;
+	}
 	//한건 삭제
 	public boolean deleteMember(String id) {
 		getConnect();
