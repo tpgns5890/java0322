@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <style>
+        #container {
+            text-align: center;
+            margin: 0 auto;
+            background-color: white;
+        }
+
+        div {
+
+            width: 480px;
+            background-color: green;
+            padding: 10px;
+        }
+
+        p {
+            display: inline-block;
+            width: 100px;
+            background-color: yellow;
+            padding: 5px;
+            margin: 4px;
+        }
+
+        #timer {
+            display: inline-block;
+            background-color: black;
+            width: 100px;
+            height: 30px;
+            text-align: center;
+            padding: 10px;
+            margin: 4px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        단어입력: <input type="text" id="word">
+        <button id="btn">입력</button><br><br>
+        <div id="wordlist"></div>
+        <div id="timer"></div>
+        <script>
+            let words =
+                `Lorem ipsum`;
+            let wordAry = words.split(' ');
+            wordAry.forEach(word => {
+                let pTag = document.createElement('p');
+                pTag.textContent = word;
+                document.getElementById('wordlist').append(pTag);
+            })
+
+            document.querySelector('#btn').addEventListener('click', removeWord);
+            document.querySelector('#word').addEventListener('keypress', (e) => {
+                if (e.keyCode === 13) {
+                    removeWord();
+                    document.querySelector('#word').value = '';
+                }
+            });
+            document.addEventListener('change', timer());
+
+            function removeWord() {
+                let removeKey = document.querySelector("#word").value;
+                console.log(removeKey);
+                document.querySelectorAll('#wordlist>p').forEach(word => {
+                    if (removeKey == word.textContent) {
+                        word.remove();
+                    }
+                });
+            }
+
+
+
+            function timer() {
+                // String.prototype.toMMSS = function () {
+                //     var myNum = parseInt(this, 10);
+
+                //     var minutes = Math.floor((myNum - (3600)) / 60);
+                //     var seconds = myNum - (3600) - (minutes * 60);
+
+                //     if (minutes < 10) {
+                //         minutes = "0" + minutes;
+                //     }
+                //     if (seconds < 10) {
+                //         seconds = "0" + seconds;
+                //     }
+                //     return minutes + ':' + seconds;
+                // }
+                let time = 10
+                // let timer = String.toMMSS(10);
+                let timer1 = setInterval(() => {
+                    console.log(time);
+                    document.getElementById('timer').textContent = time;
+                    if (document.querySelector('#wordlist').children.length == 0 && time > 0) {
+                        clearInterval(timer1);
+                        document.getElementById('timer').textContent = time + ' 초 성공!';
+                    }
+                    if (time-- <= 0) {
+                        clearInterval(timer1); //setInterval을 종료하는 clearInterval(변수)
+                        document.getElementById('timer').textContent = 'TIMES UP!';
+                    }
+                }, 1000);
+            }
+        </script>
+    </div>
+</body>
+
+</html>

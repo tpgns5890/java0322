@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+
+	<script>
+		//getFullYear, getMonth,
+		document.addEventListener('DOMContentLoaded', function () {
+			let today = new Date(); // 현재 날짜정보 가져오기
+
+			//달력에서 표기하는 날짜 객체
+			let thisMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+			//달력에서 표기하는 연도
+			let currentYear = thisMonth.getFullYear();
+			let currentMonth = thisMonth.getMonth();
+			let currentDate = thisMonth.getDate();
+
+			//이전달의 마지막 날 날짜와 요일.
+			let startDate = new Date(currentYear, currentMonth, 0);
+			let prevDate = startDate.getDate();
+			let prevDay = startDay.getDay();
+
+			//이번달의 마지막 날 날짜와 요일
+			let endDay = new Date(currentYear, currentMonth + 1, 0);
+			let nextDate = endDay.getDate();
+			let nextDay = endDay.getDay();
+
+
+
+
+
+			let table = document.createElement('table');
+			table.setAttribute('border', '1');
+
+			let tbody = document.createElement('tbody');
+			let tr = document.createElement('tr');
+			tbody.append(tr);
+
+			//요일지정.
+			for (let i = 0; i < thisDay; i++) {
+				let td = document.createElement('td');
+				tr.append(td);
+			}
+			for (let i = 1; i < lastDate; i++) {
+				let td = document.createElement('td');
+				td.textContent = i;
+				tr.append(td);
+				if ((i + thisDay) % 7 == 0) {
+					tr = document.createElement('tr');
+				}
+				tbody.append(tr);
+			}
+
+			table.append(tbody);
+			document.getElementById('show').append(table);
+
+		})
+	</script>
+</head>
+
+<body>
+	<div id="show"></div>
+</body>
+
+</html>
