@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+#container{
+	width:500px;
+	margin : 0 auto;
+
+}
+h3{
+	border: 1px solid black;
+	text-align:center;
+	margin:0;
+	margin-bottom: 10px;
+	padding :15px;
+	background-color: #bbbbbb;
+	
+}
+label{
+	display:inline-block;
+	width:70px;
+}
+#inputForm{
+	width:330px;
+	display:inline-block;
+
+}
+form input{
+	display:inline-block;
+	width:250px;
+}
+#btn{
+	width:160px;
+	margin-top:25px; 
+	display:inline-block;
+	float:right;
+
+}
+#add{
+	display:block;
+	width: 130px;
+	height:30px;
+}
+#checked{
+	margin-top:10px;
+	display:block;
+	width: 130px;
+	height:30px;
+}
+th{
+	padding:0px;
+	margin:0px;
+}
+table{
+
+	margin-top:10px;
+background-color:#cccccc;
+	width:500px;
+	border-collapse: collapse;
+
+}
+tbody tr{
+	height:25px;
+}
+tbody tr:nth-child(2n) {
+    background-color: #eeeeee;
+  }
+tbody tr:nth-child(2n+1) {
+    background-color: #ffffff;
+  }
+  
+tbody tr:active{
+	background-color: #aaaaaa;
+	text-decoration:line-through
+}

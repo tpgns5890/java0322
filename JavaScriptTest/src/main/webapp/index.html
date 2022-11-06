@@ -3,29 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="css/style.css" rel="stylesheet" />
 </head>
 <body>
-	<h3>도서목록 페이지</h3>
+	<div id = "container">
+		<h3>도서목록 페이지</h3>
+	
+		<form>
+		<div id="inputForm">
+			<label>도서코드</label><input type ="text" id ="id"><br>
+			<label>도서명</label><input type ="text" id ="name"><br>
+			<label>저자</label><input type ="text" id ="writer"><br>
+			<label>출판사</label><input type ="text" id ="press"><br>
+			<label>금액</label><input type ="text" id ="price">
+		</div>
+		<div id=btn>
+			<button type="button" id="add">저장</button>
+			<button type="button" id="checked">선택삭제</button>
+		</div>
+		</form>
+	
 
-	<form>
-	도서코드<input type ="text" id ="id"><br>
-	도서명<input type ="text" id ="name"><br>
-	저자<input type ="text" id ="writer"><br>
-	출판사<input type ="text" id ="press"><br>
-	금액<input type ="text" id ="price">
-	<button type="button" id="add">저장</button>
-	<button type="button" id="checked">선택삭제</button>
-	</form>
+		<div id ="show">
+		<table>
+		
+		<thead>
+		</thead>
 
-	<hr>
-	<div id ="show">
-	<table>
-	<thead>
-	</thead>
-	<tbody>
-	</tbody>
-	</table>
+		<tbody>
+		</tbody>
+		</table>
+		</div>
+		<script src="javaScript/book.js"></script>
 	</div>
-	<script src="javaScript/book.js"></script>
 </body>
 </html>

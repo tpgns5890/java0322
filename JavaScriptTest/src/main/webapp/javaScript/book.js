@@ -41,7 +41,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	//선택 삭제버튼
 	document.querySelector('#checked').addEventListener('click', function () {
-	}
+		let trs = document.querySelectorAll('#show>table>tbody>tr');
+		for (let i = 0; i < trs.length; i++) {
+			if (trs[i].children[0].checked == true) {
+				trs[i].remove();
+				let code = trs[i].children[1].textContent;
+				console.log(code);
+				let data = 'bookCode=' + code;
+				fetch('./BookDelServlet', {
+					method: 'post',
+					headers: {
+						'Content-type': 'application/x-www-form-urlencoded'
+					},
+					body: data
+				})
+				.then(result => result.json())
+
+				.catch(err => {
+					console.log(err);
+				});
+			}
+		}
+	});
+	
 	//thead
 	let tr = document.createElement('tr');
 	//thead에 checkbox생성.
@@ -121,5 +143,11 @@ document.addEventListener('DOMContentLoaded', function () {
 		btn.appendChild(txt);
 		tr.appendChild(btn);
 		return tr;
+	}
+	
+	let click = document.querySelectorAll('tbody tr').addEventListener();
+
+	function clickChange(){
+		click.style.color = '#bbbbbb';
 	}
 });
